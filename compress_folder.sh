@@ -40,3 +40,4 @@ mkdir -p $SESSION_BIDS_TRANSFER_DIR
 
 # Transfer compressed file back to $SCRATCH
 rsync -v "${SESSION_BIDS_OUTPUT_DIR}/sub-${SUBJECT_ID}_ses-${SESSION_NAME}_compressed.tar.gz"  "$SESSION_BIDS_TRANSFER_DIR"
+rsync -v "${SESSION_BIDS_OUTPUT_DIR}/sub-${SUBJECT_ID}_ses-${SESSION_NAME}_archive.json"  "$SESSION_BIDS_TRANSFER_DIR"
