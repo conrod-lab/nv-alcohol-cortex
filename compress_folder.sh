@@ -32,7 +32,7 @@ mkdir -p "$SESSION_BIDS_OUTPUT_DIR"
 tar -czf "${SESSION_BIDS_OUTPUT_DIR}/sub-${SUBJECT_ID}_ses-${SESSION_NAME}_compressed.tar.gz" -C "$SUBJECT_DIR" .
 
 # Create sidecar JSON file with number of files
-echo "{\"num_files\": ${NUM_FILES}}" > "${SESSION_BIDS_OUTPUT_DIR}/sub-${SUBJECT_ID}_ses-${SESSION_NAME}_archive.json"
+echo "{\"num_files\": ${NUM_FILES}}" > "${SESSION_BIDS_OUTPUT_DIR}/sub-${SUBJECT_ID}_ses-${SESSION_NAME}_compressed.json"
 
 # Make output subject bids dir
 SESSION_BIDS_TRANSFER_DIR="$TRANSFER_DIR/sub-${SUBJECT_ID}/ses-${SESSION_NAME}"
@@ -40,4 +40,4 @@ mkdir -p $SESSION_BIDS_TRANSFER_DIR
 
 # Transfer compressed file back to $SCRATCH
 rsync -v "${SESSION_BIDS_OUTPUT_DIR}/sub-${SUBJECT_ID}_ses-${SESSION_NAME}_compressed.tar.gz"  "$SESSION_BIDS_TRANSFER_DIR"
-rsync -v "${SESSION_BIDS_OUTPUT_DIR}/sub-${SUBJECT_ID}_ses-${SESSION_NAME}_archive.json"  "$SESSION_BIDS_TRANSFER_DIR"
+rsync -v "${SESSION_BIDS_OUTPUT_DIR}/sub-${SUBJECT_ID}_ses-${SESSION_NAME}_compressed.json"  "$SESSION_BIDS_TRANSFER_DIR"
