@@ -16,12 +16,10 @@ mkdir -p "$TARGET_DIR"
 SESSION_NAME=$(basename "$(dirname "$(dirname "$(dirname "${SUBJECT_DIR}")")")" | tr '[:upper:]' '[:lower:]')
 SUBJECT_ID=$(basename "${SUBJECT_DIR}")
 
-# Add 'sub-' prefix to the subject ID if it's just a number
-# if ! [[ "${SUBJECT_ID}" =~ ^sub- ]]; then
-#     SUBJECT_ID="sub-$(printf '%09d' "${SUBJECT_ID}")"
-# fi
-
 echo "Subject Number: $SUBJECT_ID"
+
+# Count number of files in the subject directory
+NUM_FILES=$(find "${SUBJECT_DIR}" -type f | wc -l)
 
 # Extract the session name and subject ID
 SESSION_NAME=$(basename "$(dirname "$(dirname "$(dirname "${SUBJECT_DIR}")")")" | tr '[:upper:]' '[:lower:]')
@@ -32,6 +30,9 @@ mkdir -p "$SESSION_BIDS_OUTPUT_DIR"
 
 # Compress the session folder
 tar -czf "${SESSION_BIDS_OUTPUT_DIR}/sub-${SUBJECT_ID}_ses-${SESSION_NAME}_compressed.tar.gz" -C "$SUBJECT_DIR" .
+
+# Create sidecar JSON file with number of files
+echo "{\"num_files\": ${NUM_FILES}}" > "${SESSION_BIDS_OUTPUT_DIR}/sub-${SUBJECT_ID}_ses-${SESSION_NAME}_archive.json"
 
 # Make output subject bids dir
 SESSION_BIDS_TRANSFER_DIR="$TRANSFER_DIR/sub-${SUBJECT_ID}/ses-${SESSION_NAME}"
