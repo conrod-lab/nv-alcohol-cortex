@@ -20,7 +20,7 @@ mkdir -p $LOG_DIR
 mkdir -p "$TRANSFER_DIR"
 
 # Get the subject directory based on the array index
-SUBJECT_DIRS=( $(find ${SOURCE_DIR} -maxdepth 2 -type d -name "sub-*" ) )
+SUBJECT_DIRS=( $(find "${SOURCE_DIR}" -maxdepth 4 -type d -regex ".*/[0-9]+") )
 
 # Print the filtered paths
 for path in "${SUBJECT_DIRS[@]}"; do
